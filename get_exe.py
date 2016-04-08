@@ -9,6 +9,9 @@ setup(console=["search.py"])
 import shutil
 import os
 
+import config
+temp_dir = config.temp_dir
+
 dest_dir = r"./exe" # 生成exe文件要放入的目标目录
 dest_build = dest_dir + r'/build'
 dest_dist = dest_dir + r'/dist'
@@ -20,7 +23,7 @@ if os.path.isdir(dest_dist):
 
 shutil.copytree(r'./build',dest_build)
 shutil.copytree(r'./dist',dest_dist)
-shutil.copytree(r'./template',dest_dist + r'/template')
+shutil.copytree(r'./' + temp_dir,dest_dist + r'/' + temp_dir)
 shutil.copytree(r'./static',dest_dist + r'/static')
 
 shutil.rmtree(r'./build')

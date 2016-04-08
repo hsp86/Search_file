@@ -5,3 +5,6 @@
 
 选择使用python实现，分为控制设置界面和web界面；分别用wxPython和webpy实现。
 设置界面用于设置可搜索文件夹和简单搜索功能；web界面主要用于搜索，有全面的搜索功能。
+
+
+windows系统生成exe后运行 .\exe\dist\search.exe即可
