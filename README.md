@@ -8,3 +8,10 @@
 
 
 windows系统生成exe后运行 .\exe\dist\search.exe即可
+
+需要安装的python库：
+>Python 2.7.10
+>wxPython3.0-3.0.2.0-py27
+>webpy 0.37
+>py2exe-0.6.9
+
