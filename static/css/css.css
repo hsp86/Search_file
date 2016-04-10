@@ -6,16 +6,114 @@
     border:0;
     font-size:14px;
     font-family:"Microsoft YaHei",微软雅黑,"Microsoft JhengHei",华文细黑,STHeiti,MingLiu;
-    }
+}
 .all{
     margin:auto;
     background-color:#fff;
-    width:1000px;
-    }
+    width:600px;
+}
 a{
     text-decoration:none;
     color:#000;
-    }
+}
 a:hover{
     color:#fab969;
-    }
+}
+.header_text{
+    width: 100%;
+    margin: 10px 0 10px 0;
+    text-align: center;
+    font-weight: bold;
+    font-size: 25px;
+    border-bottom:solid 3px #135a86;
+}
+.search_div{
+    margin-left: 35px;
+}
+.search{
+    height: 30px;
+    border: solid 1px #000;
+}
+#search_text{
+    width:400px;
+    margin-right: -5px;
+    border-right: 0px;
+}
+#search_button{
+    height: 32px;
+    padding: 0 50px 0 50px;
+    border-left: 0px;
+}
+.check_dir_list{
+    margin-top: 30px;
+}
+.label_dir{
+    float: left;
+    width: 200px;
+    margin: 5px 0  5px 0;
+}
+.main{
+    clear:both;
+    border-top:solid 3px #135a86;
+    position: relative;
+}
+.search_result{
+    min-height: 20px;
+}
+.result_item{
+    border: solid 1px;
+    border-color: rgba(11,33,55,0);
+    margin: 10px 5px 10px 5px;
+    padding: 5px;
+    cursor: pointer;
+}
+.result_item:hover{
+    border-color: rgba(11,33,55,0.6);
+}
+.item_fname{
+    border-bottom: dotted 1px #135;
+}
+.item_fcontent{
+    margin-left: 10px;
+}
+.showfile{
+    width: 100%;
+    height: 100%;
+    margin-top: 5px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(55,55,55,0.9);
+    display: none;
+    color: white;
+}
+.close{
+    float: right;
+    cursor: pointer;
+    margin-top: 5px;
+}
+.file_name{
+    width: 100%;
+    text-align: center;
+    padding: 5px 0 5px 0;
+    font-weight: bold;
+    border-bottom: dotted 1px #329;
+}
+.file_content{
+    width: 100%;
+    height: 100%;
+    overflow: scroll;
+}
+.footer{
+    width:100%;
+    text-align:center;
+    color:#868f95;
+    border-top:solid 3px #135a86;
+    padding-top:10px;
+    margin-top: 30px;
+}
+.set_color{
+    color: red;
+    font-weight: bold;
+}
+

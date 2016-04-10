@@ -11,22 +11,38 @@ $def with(load_dir)
 <body>
 <div class="all">
     <div class="header">
-        <h3>文本搜索系统</h3>
-        <input type="text" id="search_test" placeholder="请输入搜索内容" required >
-        <input type="button" id="search" value="搜索">
-        <br />
+        <div class="header_text">文本搜索系统</div>
+        <div class="search_div">
+            <input type="text" id="search_text" class="search" placeholder="请输入搜索内容" required >
+            <input type="button" id="search_button" class="search" value="搜索">
+        </div>
         <div class="check_dir_list">
         $for item in load_dir:
-            <input type="checkbox" id="check$loop.index" class="check_dir" value="$item" checked><label for="check$loop.index">$item</label>
+            <div class="label_dir">
+                <input type="checkbox" id="check$loop.index" class="check_dir" value="$item"><label for="check$loop.index">$item</label>
+            </div>
         </div>
     </div>
     <div class="main">
-    
+        <div class="search_result">
+            <div class="result_item">
+                <div class="item_fname">
+                    显示搜索结果的文件名
+                </div>
+                <div class="item_fcontent">
+                    显示搜索结果的内容
+                </div>
+            </div>
+        </div>
+        <div class="showfile">
+            <div class="close">关闭</div>
+            <div class="file_name">打开文件名</div>
+            <div class="file_content">打开文件内容打开文件内容打开文件内容打开文件内容打开文件内容打开文件内容打开文件内容打开文件内容打开文件内容打开文件内容打开文件内容打开文件内容打开文件内容打开文件内容打开文件内容打开文件内容打开文件内容打开文件内容打开文件内容打开文件内容打开文件内容打开文件内容打开文件内容打开文件内容</div>
+        </div>
     </div>
     <div class="footer">
-        
+        胡祀鹏设计制作 ---2016.04.10
     </div>
-    
 </div>
 </body>
 </html>
