@@ -76,6 +76,12 @@ $(function(){
         search_text = $('#search_text').val();
         search(search_text);
     });
+    $('#search_text').bind('keydown',function(event) {
+        if(event.keyCode == 13)
+        {
+            $('#search_button').click();
+        }
+    });
     // 显示文件内容中关闭按钮点击事件
     $('.close').bind('click',function(event) {
         $('.showfile').css({display: 'none'});
