@@ -22,7 +22,7 @@ class myframe(wx.Frame):#自建窗口类
         self.check_list = {} # 以父目录分组保存checkbox（子文件夹名）引用
         self.search_list = [] # 保存被选中的绝对路径
 
-        wx.Frame.__init__(self,None,-1,u"文本搜索设置",size = (550,450))
+        wx.Frame.__init__(self,None,-1,u"文本搜索设置---胡祀鹏设计制作",size = (550,450))
 
         # 整个界面大sizer
         self.sizer = wx.BoxSizer(wx.VERTICAL)
