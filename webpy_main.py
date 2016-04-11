@@ -52,29 +52,30 @@ class index:
 def search_file(search_text,path):
     res = []
     files = os.listdir(path)
+    pattern = re.compile(search_text)
     for f in files:
+        file_str = ""
+        res_item = {}
         path_file = path + '/' + f
         if(os.path.isfile(path_file)):
             try:
                 fid = open(path_file)
-                file_str = fid.read().decode('utf-8') # 搜索前将读取的内容以utf-8解码
+                file_str = fid.read()#后面搜索字符不decode这里也不用.decode('utf-8') # 搜索前将读取的内容以utf-8解码
             except:
-                print u"当前只支持utf-8的文件！"
+                print u"读取文件失败!",path_file
                 continue
             finally:
                 fid.close()
-            pattern = re.compile(search_text)
             s = pattern.search(file_str)
             if s != None:
-                res_item = {}
-                start_index = 0; # 判断是否超出文件首末
-                end_index = len(file_str);
+                start_index = 0 # 判断是否超出文件首末
+                end_index = len(file_str)
                 if start_index < s.span()[0] - 10:
                     start_index = s.span()[0] - 10
                 if end_index > s.span()[1] + 20:
-                    end_index = s.span()[1]
-                res_item[path_file] = file_str[start_index:end_index] # 截取搜索到的文本的前后10个字符
-                # print res_item,start_index,end_index
+                    end_index = s.span()[1] + 20
+                res_item[path_file] = file_str[start_index:end_index] # 最多截取搜索到的文本的前10后20个字符
+                print res_item,start_index,end_index,len(file_str)
                 res.append(res_item)
     return res
 
@@ -82,11 +83,11 @@ def search_file(search_text,path):
 def trans2html(search_re):
     res = ""
     for item in search_re:
-        for key in item: # 返回给网页的内容要以utf-8编码
+        for key in item: # 返回给网页的内容要以utf-8编码，但是item[key]加.encode('utf-8')反而出错；避免搜索结果中有html标签，所以替换<为&lt;等
             res = res +  '''
                 <div class="result_item">
-                    <div class="item_fname">''' + key.encode('utf-8') + '''</div>
-                    <div class="item_fcontent">''' + item[key.encode('utf-8')] + '''</div>
+                    <div class="item_fname">''' + key.encode('utf-8').replace("<","&lt;").replace(">","&gt;") + '''</div>
+                    <div class="item_fcontent">''' + item[key].replace("<","&lt;").replace(">","&gt;") + '''</div>
                 </div>
                 '''
     return res
@@ -94,11 +95,11 @@ def trans2html(search_re):
 class search:
     def GET(self):
         get_data = web.input(search_text={},dir=[])
-        get_str = get_data.search_text.decode('utf-8') # 从网页接收的内容以utf-8解码，在用于搜索
+        get_str = get_data.search_text # 搜索字符
         print get_str
         re_html = ""
         for item in get_data.dir:
-            re_html = re_html + trans2html(search_file(get_str,item.decode('utf-8')))
+            re_html = re_html + trans2html(search_file(get_str,item)) # 不用.decode('utf-8')也行
         if re_html == "":
             re_html = '''
                 <div class="result_item">
@@ -111,9 +112,10 @@ class open_file:
     """实现打开文件，并返回文件内容"""
     def GET(self):
         get_data = web.input(file_name={})
-        if os.path.isfile(get_data.file_name):
+        f_name = get_data.file_name.decode('utf-8') # 测试所得，要支持中文文件名必须decode（疑问：上面的目录即使有中文不用decode也行？）
+        if os.path.isfile(f_name):
             try:
-                fid = open(get_data.file_name)
+                fid = open(f_name)
                 file_str = fid.read()
             except:
                 file_str = "文件打开失败！"
@@ -122,7 +124,7 @@ class open_file:
                 fid.close()
         else:
             return u"文件不存在！"
-        return file_str
+        return file_str.replace("<","&lt;").replace(">","&gt;") # 转换html特殊字符
 
 def nf():
     return web.notfound("胡祀鹏 提示：Sorry, the page you were looking for was not found.")

@@ -2,8 +2,15 @@ $(function(){
     // 将网页中指定元素中的指定字符串标添加span来显示指定class的颜色
     function set_color($obj,str)
     {
-        obj_str = $obj.text();
-        $obj.html(obj_str.replace(new RegExp(str,'g'),'<span class="set_color">' + str + '</span>'));
+        $obj.each(function(index, el) {
+            // 虽然在python中转换过，但是这里又重新重html中获取text又变会正常字符了，所以再次转换
+            // 这个转换主要针对function search(search_text)中调用（function open_file(file)中不这样转换也正常）
+            // 而在function search(search_text)中不这样转换则出错，因为这里面用的.html插入会将如&lt;转换为正常字符如<，
+            // 这里再用.text获取的字符就为正常字符如<(而open_file中用.text插入则仍为如&lt;),
+            // 这里再以.html方式插入就转换为html代码了，所以要再次转换
+            obj_str =$(this).text().replace(new RegExp('<','g'),'&lt;').replace(new RegExp('>','g'),'&gt;');
+            $(this).html(obj_str.replace(new RegExp(str,'g'),'<span class="set_color">' + str + '</span>'));
+        });
 
     }
     // 搜索结果点击事件，每次加载后需要重新绑定
@@ -56,9 +63,10 @@ $(function(){
             data: file_name,
             success: function(text){
                 $('.file_name').text(file);
-                $('.file_content').html(text);
+                $file_cont_pre = $('.file_content pre');
+                $file_cont_pre.text(text);
                 $('.showfile').css({display: 'block'});
-                set_color($('.file_content'),search_text);
+                set_color($file_cont_pre,search_text);
             }
         });
     }
