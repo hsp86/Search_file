@@ -1,7 +1,9 @@
 #-*- coding: utf-8 -*-
 import wx
-import os
+import os,sys
 import sqlite3
+import socket
+import webbrowser
 
 import config
 dbfile = config.dbfile
@@ -27,6 +29,19 @@ class myframe(wx.Frame):#自建窗口类
         # 整个界面大sizer
         self.sizer = wx.BoxSizer(wx.VERTICAL)
         
+        self.url_label = wx.StaticText(self,-1,u'请在本局域网访问：')
+        # 输入框，显示url
+        port = '8080'
+        if(len(sys.argv) > 1):
+            port = sys.argv[1]
+        localIP = socket.gethostbyname(socket.gethostname()) # 获取本机IP
+        self.url_text = wx.TextCtrl(self,-1,'http://' + localIP + ':' + port)
+        # 复制url按钮
+        self.url_button = wx.Button(self,-1,u'复制url')
+        self.url_open_button = wx.Button(self,-1,u'打开url')
+        self.url_button.Bind(wx.EVT_BUTTON,self.url_button_click)
+        self.url_open_button.Bind(wx.EVT_BUTTON,self.url_open_button_click)
+
         # 输入框，显示浏览的目录
         self.dir_text = wx.TextCtrl(self,-1,u'请选择目录')
         # 浏览按钮
@@ -44,7 +59,18 @@ class myframe(wx.Frame):#自建窗口类
         self.clear_button.Bind(wx.EVT_BUTTON,self.clear_button_click)
 
         # 浏览部分sizer
-        sizer1 = wx.FlexGridSizer(rows = 1,cols = 2,hgap = 2,vgap = 0)
+        sizer0 = wx.FlexGridSizer(rows = 1,cols = 4,hgap = 0,vgap = 0)
+        sizer0.AddGrowableCol(0,1)
+        sizer0.AddGrowableCol(1,4)
+        sizer0.AddGrowableCol(2,1)
+        sizer0.AddGrowableCol(3,1)
+        sizer0.Add(self.url_label,0,wx.EXPAND)
+        sizer0.Add(self.url_text,0,wx.EXPAND)
+        sizer0.Add(self.url_button,0,wx.EXPAND)
+        sizer0.Add(self.url_open_button,0,wx.EXPAND)
+
+        # 浏览部分sizer
+        sizer1 = wx.FlexGridSizer(rows = 1,cols = 2,hgap = 1,vgap = 0)
         sizer1.AddGrowableCol(0,5)
         sizer1.AddGrowableCol(1,1)
         sizer1.Add(self.dir_text,0,wx.EXPAND)
@@ -64,7 +90,8 @@ class myframe(wx.Frame):#自建窗口类
         # 显示添加目录的sizer
         self.add_sizer = wx.BoxSizer(wx.VERTICAL)
 
-        # 添加以上两个sizer
+        # 添加以上三个sizer
+        self.sizer.Add(sizer0,0,wx.EXPAND | wx.ALL,10)
         self.sizer.Add(sizer1,0,wx.EXPAND | wx.ALL,10)
         self.sizer.Add(sizer2,0,wx.EXPAND | wx.ALL,10)
         self.sizer.Add(self.add_sizer,1,wx.EXPAND | wx.TOP | wx.LEFT | wx.RIGHT,5)
@@ -99,6 +126,23 @@ class myframe(wx.Frame):#自建窗口类
                 if(f[0] != '.'):
                     self.dir_list[path].append(f)
         self.show_dir(path)
+
+    # 复制检测到的url到剪切板
+    def url_button_click(self,e):
+        text_obj = wx.TextDataObject()
+        text_obj.SetText(self.url_text.GetValue())
+        if wx.TheClipboard.IsOpened() or wx.TheClipboard.Open():
+            wx.TheClipboard.SetData(text_obj)
+            wx.TheClipboard.Close()
+        # 粘贴方式：
+        # text_obj = wx.TextDataObject()
+        # if wx.TheClipboard.IsOpened() or wx.TheClipboard.Open():
+        #     if wx.TheClipboard.GetData(text_obj):
+        #         self.url_text.SetValue(text_obj.GetText())
+        #     wx.TheClipboard.Close()
+
+    def url_open_button_click(self,e):
+        webbrowser.open(self.url_text.GetValue(), new=0, autoraise=True)
 
     # 浏览打开一个目录
     def dir_button_click(self,e):

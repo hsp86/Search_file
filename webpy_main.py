@@ -3,6 +3,7 @@ import web
 import sys,os
 import sqlite3
 import re
+import chardet
 
 import config
 dbfile = config.dbfile
@@ -39,6 +40,12 @@ def reload_db():
     conn.commit()
     conn.close()
 
+def encode2utf8(file_str):
+    encode_str = chardet.detect(file_str)['encoding'] # 不为utf-8编码的要以gb2312解码后再以utf-8编码
+    # print u"当前文件(",path_file,u")编码：",encode_str
+    if encode_str != 'utf-8': # 不为uft-8编码的文件就默认gb2312方式编码，因为直接用encode_str编码时出错
+        file_str = file_str.decode('gb2312').encode('utf-8')
+    return file_str
 
 class index:
     def GET(self):
@@ -60,9 +67,10 @@ def search_file(search_text,path):
         if(os.path.isfile(path_file)):
             try:
                 fid = open(path_file)
-                file_str = fid.read()#后面搜索字符不decode这里也不用.decode('utf-8') # 搜索前将读取的内容以utf-8解码
+                file_str = fid.read()
+                file_str = encode2utf8(file_str) # 不为utf-8编码的要解码后再以utf-8编码
             except:
-                print u"读取文件失败!",path_file
+                print u"文件解码失败!",path_file
                 continue
             finally:
                 fid.close()
@@ -83,7 +91,7 @@ def search_file(search_text,path):
 def trans2html(search_re):
     res = ""
     for item in search_re:
-        for key in item: # 返回给网页的内容要以utf-8编码，但是item[key]加.encode('utf-8')反而出错；避免搜索结果中有html标签，所以替换<为&lt;等
+        for key in item: # key必须用.encode('utf-8')，否则这里出错；避免搜索结果中有html标签，所以替换<为&lt;等
             res = res +  '''
                 <div class="result_item">
                     <div class="item_fname">''' + key.encode('utf-8').replace("<","&lt;").replace(">","&gt;") + '''</div>
@@ -99,7 +107,7 @@ class search:
         print get_str
         re_html = ""
         for item in get_data.dir:
-            re_html = re_html + trans2html(search_file(get_str,item)) # 不用.decode('utf-8')也行
+            re_html = re_html + trans2html(search_file(get_str,item))
         if re_html == "":
             re_html = '''
                 <div class="result_item">
@@ -117,6 +125,7 @@ class open_file:
             try:
                 fid = open(f_name)
                 file_str = fid.read()
+                file_str = encode2utf8(file_str) # 不为utf-8编码的要解码后再以utf-8编码
             except:
                 file_str = "文件打开失败！"
                 print file_str
