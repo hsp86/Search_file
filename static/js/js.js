@@ -39,14 +39,14 @@ $(function(){
         var action = '/search';
         var search_data = "search_text=" + search_text + get_search_dir('check_dir');
         $('.search_result').html("正在搜索...");
-        $('.svg').css({display: 'block'});
+        $('.svg').css({display: 'block'}); // 加载前显示等待动画
         // alert(search_data);
         $.ajax({
             url: action,
             type: method,
             data: search_data,
             success: function(msg){
-                $('.svg').css({display: 'none'});
+                $('.svg').css({display: 'none'}); // 加载完隐藏等待动画
                 $('.search_result').html(msg);
                 re_bind();
                 set_color($('.item_fcontent'),search_text);
@@ -59,13 +59,13 @@ $(function(){
         var method = "get";
         var action = '/open_file';
         var file_name = "file_name=" + file;
-        $('.svg').css({display: 'block'});
+        $('.svg').css({display: 'block'}); // 加载前显示等待动画
         $.ajax({
             url: action,
             type: method,
             data: file_name,
             success: function(text){
-                $('.svg').css({display: 'none'});
+                $('.svg').css({display: 'none'}); // 加载完隐藏等待动画
                 $('.file_name').text(file);
                 $file_cont_pre = $('.file_content pre');
                 $file_cont_pre.text(text);
@@ -91,5 +91,5 @@ $(function(){
         $('.showfile').css({display: 'none'});
     });
     // 加载前都显示svg动画，加载完就结束svg动画
-    $('.svg').css({display: 'none'});
+    $('.svg').css({display: 'none'}); // 加载完隐藏等待动画
 })

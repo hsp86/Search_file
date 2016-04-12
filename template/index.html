@@ -4,9 +4,9 @@ $def with(load_dir)
 <head>
     <meta charset="UTF-8">
     <title>文本搜索系统---胡祀鹏设计制作</title>
+    <link href="../static/css/css.css" type="text/css" rel="stylesheet" />
     <script src="../static/jQuery/jquery-2.2.3.min.js" type="text/javascript"></script>
     <script src="../static/js/js.js" type="text/javascript"></script>
-    <link href="../static/css/css.css" type="text/css" rel="stylesheet" />
 </head>
 <body>
 <div class="all">
@@ -44,16 +44,43 @@ $def with(load_dir)
             </div>
         </div>
         <div class="svg">
-            <svg width="600" height="50" viewBox="0 0 200 50" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+            <svg width="600" height="50" viewBox="0 0 600 50" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
                 <title>等待动画</title>
                 <desc>搜索和打开文件时的等待动画</desc>
-                <path d="M 0,20 C 60,45 120,20 180,20" style="stroke:gray;stroke-width:1;fill:none;" id="p1" />
-                <circle cx="0" cy="0" r="10" style="fill:none;stroke:black;" >
-                    <!-- 使用keyPoint指定关键点0开始1结束，分号分割；keyTimes指定关键点的时间点，也是0开始1结束，分号分割；calcMode指定方法，同动画1中 -->
-                    <animateMotion dur="4s" fill="freeze" rotate="auto" keyPoints="0;0.2;0.8;1" keyTimes="0;0.33;0.66;1" calcMode="linear" repeatCount="indefinite" >
-                        <mpath xlink:href="#p1" />
-                    </animateMotion>
+                <circle cx="30" cy="20" r="10" style="stroke:none;fill:#FF0000;" >
+                    <animate id="c0" attributeName="r" attributeType="XML" from="10" to="15" begin="0" dur="1s" fill="remove" repeatCount="indefinite" />
                 </circle>
+                <circle cx="90" cy="20" r="10" style="stroke:none;fill:#FF7F00;" >
+                    <animate id="c1" attributeName="r" attributeType="XML" from="10" to="15" begin="c0.begin+100ms" dur="1s" fill="remove" repeatCount="indefinite" />
+                </circle>
+                <circle cx="150" cy="20" r="10" style="stroke:none;fill:#FFFF00;" >
+                    <animate id="c2" attributeName="r" attributeType="XML" from="10" to="15" begin="c0.begin+200ms" dur="1s" fill="remove" repeatCount="indefinite" />
+                </circle>
+                <circle cx="210" cy="20" r="10" style="stroke:none;fill:#00FF00 ;" >
+                    <animate id="c2" attributeName="r" attributeType="XML" from="10" to="15" begin="c0.begin+300ms" dur="1s" fill="remove" repeatCount="indefinite" />
+                </circle>
+                <circle cx="270" cy="20" r="10" style="stroke:none;fill:#00FFFF;" >
+                    <animate id="c2" attributeName="r" attributeType="XML" from="10" to="15" begin="c0.begin+400ms" dur="1s" fill="remove" repeatCount="indefinite" />
+                </circle>
+                <circle cx="330" cy="20" r="10" style="stroke:none;fill:#0000FF;" >
+                    <animate id="c2" attributeName="r" attributeType="XML" from="10" to="15" begin="c0.begin+500ms" dur="1s" fill="remove" repeatCount="indefinite" />
+                </circle>
+                <circle cx="390" cy="20" r="10" style="stroke:none;fill: #8B00FF;" >
+                    <animate id="c2" attributeName="r" attributeType="XML" from="10" to="15" begin="c0.begin+600ms" dur="1s" fill="remove" repeatCount="indefinite" />
+                </circle>
+                <circle cx="450" cy="20" r="10" style="stroke:none;fill: #8B7FFF;" >
+                    <animate id="c2" attributeName="r" attributeType="XML" from="10" to="15" begin="c0.begin+700ms" dur="1s" fill="remove" repeatCount="indefinite" />
+                </circle>
+                <circle cx="510" cy="20" r="10" style="stroke:none;fill:#8B7F00;" >
+                    <animate id="c2" attributeName="r" attributeType="XML" from="10" to="15" begin="c0.begin+800ms" dur="1s" fill="remove" repeatCount="indefinite" />
+                </circle>
+                <circle cx="570" cy="20" r="10" style="stroke:none;fill:#FF7F8B;" >
+                    <animate id="c2" attributeName="r" attributeType="XML" from="10" to="15" begin="c0.begin+900ms" dur="1s" fill="remove" repeatCount="indefinite" />
+                </circle>
+                
+                <polygon points="0,-5 0,5 5,0 " style="stroke:#2a2;stroke-width:2;fill:maroon;" >
+                    <animateMotion from="0,40" to="600,40" dur="5.5s" fill="freeze" keyPoints="0;0.2;0.8;1" keyTimes="0;0.33;0.66;1" calcMode="linear" repeatCount="indefinite" repeatCount="indefinite" />
+                </polygon>
             </svg>
         </div>
     </div>
