@@ -43,6 +43,19 @@ $def with(load_dir)
                 </pre>
             </div>
         </div>
+        <div class="svg">
+            <svg width="600" height="50" viewBox="0 0 200 50" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+                <title>等待动画</title>
+                <desc>搜索和打开文件时的等待动画</desc>
+                <path d="M 0,20 C 60,45 120,20 180,20" style="stroke:gray;stroke-width:1;fill:none;" id="p1" />
+                <circle cx="0" cy="0" r="10" style="fill:none;stroke:black;" >
+                    <!-- 使用keyPoint指定关键点0开始1结束，分号分割；keyTimes指定关键点的时间点，也是0开始1结束，分号分割；calcMode指定方法，同动画1中 -->
+                    <animateMotion dur="4s" fill="freeze" rotate="auto" keyPoints="0;0.2;0.8;1" keyTimes="0;0.33;0.66;1" calcMode="linear" repeatCount="indefinite" >
+                        <mpath xlink:href="#p1" />
+                    </animateMotion>
+                </circle>
+            </svg>
+        </div>
     </div>
     <div class="footer">
         胡祀鹏设计制作 ---2016.04.10

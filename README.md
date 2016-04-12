@@ -19,3 +19,5 @@ python get_exe.py py2exe
 
 即可生成exe文件，之后可用 .\exe\dist\search.exe运行
 
+运行时可指定端口号，如下指定为80端口，否则默认端口为8080端口：
+python search.py 80
