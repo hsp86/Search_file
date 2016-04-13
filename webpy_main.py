@@ -41,10 +41,11 @@ def reload_db():
     conn.close()
 
 def encode2utf8(file_str):
-    encode_str = chardet.detect(file_str)['encoding'] # 不为utf-8编码的要以gb2312解码后再以utf-8编码
-    # print u"当前文件(",path_file,u")编码：",encode_str
-    if encode_str != 'utf-8': # 不为uft-8编码的文件就默认gb2312方式编码，因为直接用encode_str编码时出错
-        file_str = file_str.decode('gb2312').encode('utf-8')
+    if config.other_encoding : # 根据配置文件中other_encoding是否考虑gb2312编码
+        encode_str = chardet.detect(file_str)['encoding'] # 不为utf-8编码的要以gb2312解码后再以utf-8编码
+        # print u"当前文件(",path_file,u")编码：",encode_str
+        if encode_str != 'utf-8': # 不为uft-8编码的文件就默认gb2312方式编码，因为直接用encode_str编码时出错
+            file_str = file_str.decode('gb2312').encode('utf-8')
     return file_str
 
 class index:
@@ -78,13 +79,18 @@ def search_file(search_text,path):
             if s != None:
                 start_index = 0 # 判断是否超出文件首末
                 end_index = len(file_str)
-                if start_index < s.span()[0] - 10:
-                    start_index = s.span()[0] - 10
-                if end_index > s.span()[1] + 20:
-                    end_index = s.span()[1] + 20
-                res_item[path_file] = file_str[start_index:end_index] # 最多截取搜索到的文本的前10后20个字符
+                if start_index < s.span()[0] - config.span_before:
+                    start_index = s.span()[0] - config.span_before
+                if end_index > s.span()[1] + config.span_after:
+                    end_index = s.span()[1] + config.span_after
+                res_item[path_file] = file_str[start_index:end_index] # 最多截取搜索到的文本的前后指定个字符
                 print res_item,start_index,end_index,len(file_str)
                 res.append(res_item)
+            else: # 如果从文件中没有搜索到，再从文件名中搜索
+                s = pattern.search(f)
+                if s != None: # 若在文件名中搜索到就显示文件开始部分内容
+                    res_item[path_file] = file_str[0:(config.span_before+config.span_after)]
+                    res.append(res_item)
     return res
 
 # 将上面搜索到的结果转换为html返回

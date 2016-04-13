@@ -63,18 +63,20 @@ a:hover{
 .result_item{
     border: solid 1px;
     border-color: rgba(11,33,55,0);
+    border-radius: 5px;
     margin: 10px 5px 10px 5px;
     padding: 5px;
     cursor: pointer;
 }
 .result_item:hover{
     border-color: rgba(11,33,55,0.6);
+    box-shadow: 0px 1px 1px 2px #666;
 }
 .item_fname{
     border-bottom: dotted 1px #135;
 }
 .item_fcontent{
-    margin-left: 10px;
+    text-indent: 2em
 }
 .showfile{
     width: 100%;
@@ -83,14 +85,15 @@ a:hover{
     position: absolute;
     top: 0;
     left: 0;
-    background-color: rgba(55,55,55,0.9);
+    background-color: rgba(66,66,66,0.8);
     display: none;
     color: white;
+    border-radius: 5px;
+    box-shadow: 1px 2px 2px 2px #888;
 }
 .svg{
     width: 100%;
     height: 100%;
-    margin-top: 5px;
     position: absolute;
     top: 0;
     left: 0;
@@ -101,6 +104,7 @@ a:hover{
     float: right;
     cursor: pointer;
     margin-top: 5px;
+    margin-right: 3px;
 }
 .file_name{
     width: 100%;

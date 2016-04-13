@@ -50,6 +50,7 @@ $(function(){
                 $('.search_result').html(msg);
                 re_bind();
                 set_color($('.item_fcontent'),search_text);
+                set_color($('.item_fname'),search_text);// 同时也要标亮文件名中搜索的字符串
             }
         });
     }
@@ -71,6 +72,7 @@ $(function(){
                 $file_cont_pre.text(text);
                 $('.showfile').css({display: 'block'});
                 set_color($file_cont_pre,search_text);
+                set_color($(".file_name"),search_text);// 同时也要标亮文件名中搜索的字符串
             }
         });
     }

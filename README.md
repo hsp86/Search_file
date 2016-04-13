@@ -21,3 +21,5 @@ python get_exe.py py2exe
 
 运行时可指定端口号，如下指定为80端口，否则默认端口为8080端口：
 python search.py 80
+
+运行或生成exe前请先配置config.py文件部分参数,详情查看此文件
