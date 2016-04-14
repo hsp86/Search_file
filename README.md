@@ -11,7 +11,7 @@
 >Python 2.7.10
 >wxPython3.0-3.0.2.0-py27
 >webpy 0.37
->chardet-2.3.0
+>chardet-2.3.0（配置文件中other_encoding设置为True时才需要）
 >py2exe-0.6.9（可选）
 
 windows系统安装py2exe后可在dos下进入本工程目录运行：

@@ -3,7 +3,7 @@ import web
 import sys,os
 import sqlite3
 import re
-import chardet
+# import chardet
 
 import config
 dbfile = config.dbfile
@@ -42,6 +42,7 @@ def reload_db():
 
 def encode2utf8(file_str):
     if config.other_encoding : # 根据配置文件中other_encoding是否考虑gb2312编码
+        import chardet
         encode_str = chardet.detect(file_str)['encoding'] # 不为utf-8编码的要以gb2312解码后再以utf-8编码
         # print u"当前文件(",path_file,u")编码：",encode_str
         if encode_str != 'utf-8': # 不为uft-8编码的文件就默认gb2312方式编码，因为直接用encode_str编码时出错
