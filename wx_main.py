@@ -58,7 +58,7 @@ class myframe(wx.Frame):#自建窗口类
         self.clear_button = wx.Button(self,-1,u'清除')
         self.clear_button.Bind(wx.EVT_BUTTON,self.clear_button_click)
 
-        # 浏览部分sizer
+        # url部分sizer
         sizer0 = wx.FlexGridSizer(rows = 1,cols = 4,hgap = 0,vgap = 0)
         sizer0.AddGrowableCol(0,1)
         sizer0.AddGrowableCol(1,4)

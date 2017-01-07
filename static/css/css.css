@@ -58,7 +58,7 @@ a:hover{
     position: relative;
 }
 .search_result{
-    min-height: 20px;
+    min-height: 300px;
 }
 .result_item{
     border: solid 1px;
